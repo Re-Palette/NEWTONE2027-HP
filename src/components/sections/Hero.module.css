@@ -1,0 +1,694 @@
+/* ==========================================================================
+   HERO — デザインカンプの再現。レイアウトは変更しないこと。
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100svh;
+  padding: calc(var(--header-h) + 2vh) var(--gutter) 3vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---------- 背景 ---------- */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+/* 顔が画面を埋めないよう、中央上部のボックスに収める */
+/* 画像側で顔の位置を決めてあるので、ここでは大きさだけを制御する */
+.portraitWrap {
+  position: absolute;
+  left: 50%;
+  top: 1.5%;
+  width: min(860px, 52vw);
+  aspect-ratio: 1188 / 635;
+  transform: translateX(-50%);
+}
+
+.portrait {
+  object-fit: cover;
+  object-position: 50% 50%;
+  opacity: 0.86;
+  mix-blend-mode: screen;
+  filter: saturate(108%) contrast(108%) brightness(1.06);
+  -webkit-mask-image: radial-gradient(
+    58% 68% at 50% 40%,
+    #000 0%,
+    rgba(0, 0, 0, 0.88) 38%,
+    rgba(0, 0, 0, 0.32) 64%,
+    transparent 86%
+  );
+  mask-image: radial-gradient(
+    58% 68% at 50% 40%,
+    #000 0%,
+    rgba(0, 0, 0, 0.88) 38%,
+    rgba(0, 0, 0, 0.32) 64%,
+    transparent 86%
+  );
+}
+
+.ribbons {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+}
+
+.ribbon {
+  animation: ribbonDrift 22s ease-in-out infinite alternate;
+}
+.ribbon:nth-of-type(2) {
+  animation-duration: 28s;
+  animation-delay: -6s;
+}
+.ribbon:nth-of-type(3) {
+  animation-duration: 19s;
+  animation-delay: -11s;
+}
+.ribbon:nth-of-type(4) {
+  animation-duration: 26s;
+  animation-delay: -3s;
+}
+.ribbon:nth-of-type(5) {
+  animation-duration: 31s;
+  animation-delay: -15s;
+}
+
+@keyframes ribbonDrift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: translate3d(-14px, 22px, 0) scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* センターの発光 */
+.bloom {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(1180px, 88vw);
+  aspect-ratio: 1.55;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    closest-side,
+    rgba(150, 120, 255, 0.2) 0%,
+    rgba(90, 140, 255, 0.1) 44%,
+    rgba(0, 0, 0, 0) 76%
+  );
+  filter: blur(6px);
+}
+
+/* 足元の人混みのボケ */
+.crowd {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 34%;
+  background:
+    radial-gradient(
+      52% 120% at 12% 100%,
+      rgba(120, 80, 220, 0.45) 0%,
+      rgba(0, 0, 0, 0) 70%
+    ),
+    radial-gradient(
+      48% 120% at 78% 100%,
+      rgba(255, 70, 170, 0.32) 0%,
+      rgba(0, 0, 0, 0) 70%
+    ),
+    linear-gradient(
+      to top,
+      rgba(4, 4, 18, 0.92) 0%,
+      rgba(6, 6, 26, 0.55) 46%,
+      rgba(6, 6, 26, 0) 100%
+    );
+}
+
+/* 次セクションへの繋ぎ（スクロールで濃くなる） */
+.floor {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 46%;
+  opacity: 0;
+  background: linear-gradient(
+    to top,
+    #05051a 0%,
+    rgba(5, 5, 26, 0.86) 44%,
+    rgba(5, 5, 26, 0) 100%
+  );
+}
+
+/* ---------- 左右のコピー ---------- */
+.copyLeft,
+.copyRight {
+  position: absolute;
+  top: clamp(108px, 15vh, 210px);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.copyLeft {
+  left: var(--gutter);
+}
+
+.copyRight {
+  right: var(--gutter);
+  text-align: right;
+}
+
+.copyLeftText,
+.copyRightText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22em;
+  font-family: var(--font-mincho);
+  font-weight: 500;
+  font-size: clamp(15px, 1.52vw, 27px);
+  line-height: 1.42;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-shadow: 0 2px 26px rgba(10, 12, 60, 0.9);
+}
+
+.copyRightText {
+  align-items: flex-end;
+}
+
+/* 1行ずつ少しずつ字下げして、手書きの流れを再現 */
+.copyLeftText > span:nth-child(2) {
+  padding-left: 0.5em;
+}
+.copyLeftText > span:nth-child(3) {
+  padding-left: 1.1em;
+}
+.copyRightText > span:nth-child(2) {
+  padding-right: 0.45em;
+}
+.copyRightText > span:nth-child(3) {
+  padding-right: 0.15em;
+}
+.copyRightText > span:nth-child(4) {
+  padding-right: 0.8em;
+}
+
+.copyEmphasis {
+  position: relative;
+  display: inline-block;
+}
+
+.copyEmphasis em {
+  font-style: normal;
+}
+
+.copyStroke,
+.copyStrokeRight {
+  position: absolute;
+  left: 2.1em;
+  bottom: -0.34em;
+  width: 4.1em;
+  height: 0.46em;
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 79, 174, 0.85));
+}
+
+.copyStrokeRight {
+  left: auto;
+  right: -0.3em;
+  bottom: -0.36em;
+  width: 4.7em;
+}
+
+/* ---------- センター ---------- */
+.center {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.lede {
+  margin-bottom: clamp(4px, 0.5vw, 10px);
+  font-family: var(--font-mincho);
+  font-weight: 500;
+  font-size: clamp(12px, 1.16vw, 21px);
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(8, 10, 50, 0.95);
+}
+
+.title {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* 巨大ワードマーク */
+.word {
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(56px, 16.6vw, 300px);
+  line-height: 0.88;
+  letter-spacing: 0.005em;
+}
+
+.wordLetter {
+  display: block;
+  overflow: visible;
+}
+
+.wordGlyph {
+  position: relative;
+  display: block;
+  background: var(--grad-iridescent);
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 26px rgba(190, 210, 255, 0.55))
+    drop-shadow(0 6px 44px rgba(120, 90, 255, 0.5));
+  animation: sheen 9s ease-in-out infinite;
+}
+
+.wordLetter:nth-child(2n) .wordGlyph {
+  animation-delay: -1.4s;
+}
+.wordLetter:nth-child(3n) .wordGlyph {
+  animation-delay: -2.8s;
+}
+
+/* 色収差（左右にわずかなピンク／ブルーのにじみ） */
+.wordGlyph::before,
+.wordGlyph::after {
+  content: attr(data-glyph);
+  position: absolute;
+  inset: 0;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.wordGlyph::before {
+  color: rgba(255, 90, 190, 0.3);
+  transform: translate3d(-0.006em, 0.003em, 0);
+}
+
+.wordGlyph::after {
+  color: rgba(90, 170, 255, 0.28);
+  transform: translate3d(0.006em, -0.003em, 0);
+}
+
+@keyframes sheen {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 2027 + The Next Beauty. */
+.yearRow {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: clamp(-34px, -3.2vw, -12px);
+}
+
+.year {
+  display: block;
+  margin-left: -1.5%;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 11.2vw, 200px);
+  line-height: 0.9;
+  letter-spacing: 0.012em;
+  background: var(--grad-iridescent);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 24px rgba(180, 200, 255, 0.5))
+    drop-shadow(0 6px 40px rgba(130, 90, 255, 0.45));
+  animation: sheen 11s ease-in-out infinite reverse;
+}
+
+.script {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  z-index: 2;
+  font-family: var(--font-script);
+  font-size: clamp(26px, 5.4vw, 96px);
+  line-height: 1;
+  white-space: nowrap;
+  transform: translate(-46%, 0) rotate(-4.2deg);
+  background: var(--grad-script);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(255, 62, 165, 0.75))
+    drop-shadow(0 0 60px rgba(255, 62, 165, 0.4));
+}
+
+.scriptStroke {
+  position: absolute;
+  left: 4%;
+  bottom: -0.1em;
+  width: 96%;
+  height: 0.26em;
+  filter: drop-shadow(0 0 12px rgba(255, 79, 174, 0.85));
+}
+
+.subCopy {
+  margin-top: clamp(10px, 1.5vw, 26px);
+  font-family: var(--font-mincho);
+  font-weight: 500;
+  font-size: clamp(13px, 1.34vw, 25px);
+  letter-spacing: 0.14em;
+  color: #fff;
+  text-shadow: 0 2px 22px rgba(8, 10, 50, 0.95);
+}
+
+.creed {
+  display: flex;
+  gap: clamp(10px, 1vw, 18px);
+  margin-top: clamp(7px, 0.85vw, 15px);
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(9px, 0.82vw, 14px);
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.creedAccent {
+  color: var(--nt-pink);
+  text-shadow: 0 0 16px rgba(255, 79, 174, 0.9);
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: clamp(16px, 2.4vw, 42px);
+  font-family: var(--font-ui);
+  font-size: clamp(8px, 0.68vw, 11px);
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.4s ease;
+}
+
+.scroll:hover {
+  color: #fff;
+}
+
+.scrollArrow {
+  width: 7px;
+  height: 22px;
+  animation: scrollHint 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scrollHint {
+  0%,
+  100% {
+    transform: translateY(-3px);
+    opacity: 0.35;
+  }
+  45% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+/* ---------- 左下のバッジ ---------- */
+.badge {
+  position: absolute;
+  left: clamp(16px, 3.4vw, 64px);
+  bottom: clamp(24px, 6vh, 92px);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: clamp(122px, 12.4vw, 206px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  text-align: center;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge:hover {
+  transform: scale(1.04);
+}
+
+.badgeRing {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      closest-side at 36% 30%,
+      rgba(150, 110, 255, 0.6) 0%,
+      rgba(86, 60, 200, 0.42) 46%,
+      rgba(40, 30, 120, 0.26) 78%,
+      rgba(20, 16, 70, 0.14) 100%
+    );
+  box-shadow:
+    inset 0 0 0 1.4px rgba(255, 255, 255, 0.62),
+    inset 0 0 48px rgba(210, 170, 255, 0.55),
+    0 0 70px -6px rgba(160, 110, 255, 0.8);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.badgeRing::after {
+  content: "";
+  position: absolute;
+  inset: -1.4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 210deg,
+    rgba(255, 79, 174, 0) 0deg,
+    rgba(255, 79, 174, 0.95) 60deg,
+    rgba(150, 110, 255, 0.9) 150deg,
+    rgba(80, 160, 255, 0) 260deg,
+    rgba(255, 79, 174, 0) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1.4px;
+  animation: ringSpin 14s linear infinite;
+}
+
+@keyframes ringSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.badgeText {
+  position: relative;
+  font-family: var(--font-mincho);
+  font-weight: 500;
+  font-size: clamp(9px, 0.79vw, 14px);
+  line-height: 1.68;
+  letter-spacing: 0.08em;
+  color: #fff;
+}
+
+.badgeArrow {
+  position: relative;
+  width: clamp(24px, 2.2vw, 38px);
+  height: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge:hover .badgeArrow {
+  transform: translateX(5px);
+}
+
+/* ---------- 右下のカテゴリー ---------- */
+.categories {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(56px, 12vh, 150px);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.55vw, 10px);
+  text-align: right;
+}
+
+.catItem {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(8px, 0.72vw, 12px);
+  letter-spacing: 0.26em;
+  color: rgba(255, 210, 240, 0.86);
+  text-shadow: 0 0 14px rgba(255, 110, 200, 0.5);
+}
+
+.catItem:last-child {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* タブレット以下：左右コピーは残しつつ縮小 */
+@media (max-width: 1023px) {
+  .copyLeft,
+  .copyRight {
+    top: clamp(88px, 12vh, 140px);
+  }
+
+  .badge {
+    width: 118px;
+  }
+
+  .categories {
+    bottom: clamp(44px, 9vh, 96px);
+  }
+}
+
+/* スマートフォン：装飾を縦積みに整理して主役を守る */
+@media (max-width: 767px) {
+  .hero {
+    align-items: center;
+    padding-top: calc(var(--header-h) + 13vh);
+    padding-bottom: 17vh;
+  }
+
+  /* スマートフォンでは顔が小さくなりすぎるので、画面幅いっぱいに使う */
+  .portraitWrap {
+    top: 6%;
+    width: min(126vw, 560px);
+  }
+
+  .copyLeft,
+  .copyRight {
+    top: calc(var(--header-h) + 14px);
+  }
+
+  .copyLeftText,
+  .copyRightText {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  .copyStroke,
+  .copyStrokeRight {
+    height: 0.4em;
+  }
+
+  .center {
+    padding-top: 2vh;
+  }
+
+  .word {
+    font-size: 19.4vw;
+  }
+
+  .year {
+    font-size: 14.6vw;
+  }
+
+  /* 小さい画面では 2027 と重なりすぎるので、少し下に逃がす */
+  .script {
+    font-size: 6.4vw;
+    bottom: -18%;
+    transform: translate(-48%, 0) rotate(-3.4deg);
+  }
+
+  .yearRow {
+    margin-top: -2.6vw;
+    padding-bottom: 3.4vw;
+  }
+
+  .badge {
+    left: 50%;
+    bottom: 18px;
+    width: 104px;
+    transform: translateX(-50%);
+  }
+
+  .badge:hover {
+    transform: translateX(-50%) scale(1.04);
+  }
+
+  .badgeText {
+    font-size: 8px;
+  }
+
+  .badgeArrow {
+    width: 20px;
+  }
+
+  .categories {
+    right: 10px;
+    bottom: 124px;
+    gap: 2px;
+  }
+
+  .catItem {
+    font-size: 7px;
+    letter-spacing: 0.2em;
+  }
+
+  .portrait {
+    object-position: 50% 24%;
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 359px) {
+  .categories {
+    display: none;
+  }
+}
+
+/* 低い横長ウィンドウ */
+@media (max-height: 620px) and (min-width: 768px) {
+  .badge,
+  .categories {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbon,
+  .wordGlyph,
+  .year,
+  .scrollArrow,
+  .badgeRing::after {
+    animation: none;
+  }
+}

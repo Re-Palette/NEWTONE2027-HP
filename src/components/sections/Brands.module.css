@@ -1,0 +1,464 @@
+/* ==========================================================================
+   SECTION 03 — 出展ブランド（奥行きのあるカルーセル）
+   ========================================================================== */
+
+.section {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  align-items: center;
+  gap: clamp(20px, 2.4vw, 56px);
+  min-height: 100svh;
+  padding-block: clamp(70px, 8vh, 120px);
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #05051c 0%,
+    #08082a 34%,
+    #0b0b36 66%,
+    #060620 100%
+  );
+}
+
+.glow {
+  position: absolute;
+  left: 58%;
+  top: 56%;
+  width: min(1400px, 110vw);
+  aspect-ratio: 1.4;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    closest-side,
+    rgba(150, 110, 255, 0.28) 0%,
+    rgba(60, 120, 255, 0.16) 38%,
+    rgba(255, 70, 170, 0.1) 60%,
+    rgba(0, 0, 0, 0) 78%
+  );
+  pointer-events: none;
+}
+
+/* ---------- 見出し ---------- */
+.head {
+  position: relative;
+  z-index: 4;
+  padding-left: max(var(--gutter), calc((100vw - var(--shell)) / 2 + var(--gutter)));
+  padding-right: clamp(8px, 1vw, 20px);
+}
+
+.heading {
+  margin-top: clamp(12px, 1.4vw, 24px);
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: clamp(26px, 3.02vw, 52px);
+  line-height: 1.3;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(120, 150, 255, 0.4);
+}
+
+.copyLineMask {
+  display: block;
+  overflow: hidden;
+}
+
+.copyLine {
+  display: block;
+}
+
+.script {
+  position: relative;
+  display: inline-block;
+  margin-top: clamp(8px, 1vw, 18px);
+  font-size: clamp(19px, 2vw, 33px);
+  white-space: nowrap;
+}
+
+.scriptStroke {
+  position: absolute;
+  left: -1%;
+  bottom: -0.24em;
+  width: 102%;
+  height: 0.3em;
+  filter: drop-shadow(0 0 12px rgba(255, 79, 174, 0.8));
+}
+
+.body {
+  margin-top: clamp(14px, 1.6vw, 26px);
+}
+
+.action {
+  margin-top: clamp(20px, 2.2vw, 36px);
+}
+
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(6px, 0.7vw, 12px);
+  margin-top: clamp(18px, 2vw, 32px);
+}
+
+.cats li {
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 99px;
+  font-family: var(--font-ui);
+  font-size: clamp(8px, 0.68vw, 11px);
+  letter-spacing: 0.2em;
+  color: var(--nt-ink-faint);
+  transition:
+    color 0.5s ease,
+    border-color 0.5s ease,
+    background-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.catOn {
+  color: #fff;
+  border-color: rgba(255, 79, 174, 0.75);
+  background: rgba(255, 79, 174, 0.14);
+  box-shadow: 0 0 24px -6px rgba(255, 79, 174, 0.85);
+}
+
+/* ---------- カルーセル ---------- */
+/* カルーセルは右カラム内を流れる。左端はマスクでなじませる */
+.viewport {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  height: clamp(400px, 68vh, 720px);
+  overflow: hidden;
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 7%,
+    #000 100%
+  );
+  mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 100%);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.6vw, 30px);
+  padding-inline: clamp(24px, 3vw, 60px) 24vw;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.outer {
+  flex: none;
+  width: clamp(196px, 20vw, 320px);
+  transform-style: preserve-3d;
+}
+
+.inner3d {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(14, 16, 54, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow:
+    0 40px 110px -32px rgba(0, 0, 0, 0.95),
+    0 0 60px -22px color-mix(in srgb, var(--c1) 70%, transparent);
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+}
+
+/* カード上端の発光ライン */
+.inner3d::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--c1) 90%, #fff) 50%,
+    transparent
+  );
+  z-index: 3;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.mediaImg {
+  object-fit: cover;
+}
+
+/* 画像未設定時のブランドカラープレート */
+.plate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(
+      82% 58% at 50% 86%,
+      color-mix(in srgb, var(--c1) 92%, #fff) 0%,
+      transparent 72%
+    ),
+    linear-gradient(
+      168deg,
+      color-mix(in srgb, var(--c1) 88%, #fff) 0%,
+      var(--c1) 34%,
+      var(--c2) 88%,
+      color-mix(in srgb, var(--c2) 72%, #0a0a2c) 100%
+    );
+}
+
+.plateGloss {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      118deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0) 34%,
+      rgba(255, 255, 255, 0) 62%,
+      rgba(255, 255, 255, 0.22) 100%
+    ),
+    radial-gradient(
+      50% 30% at 50% 100%,
+      rgba(255, 255, 255, 0.38) 0%,
+      transparent 70%
+    );
+  mix-blend-mode: screen;
+}
+
+.plateMark {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(64px, 7vw, 130px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.34);
+  text-shadow: 0 8px 40px rgba(0, 0, 0, 0.32);
+}
+
+.no {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.4vw, 24px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.cat {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: rgba(4, 4, 18, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-family: var(--font-ui);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: #fff;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.body2 {
+  position: relative;
+  padding: clamp(13px, 1.2vw, 20px) clamp(14px, 1.3vw, 22px)
+    clamp(16px, 1.5vw, 24px);
+}
+
+.name {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(19px, 1.62vw, 30px);
+  letter-spacing: 0.05em;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.catJa {
+  margin-top: 4px;
+  font-size: clamp(10px, 0.76vw, 12px);
+  letter-spacing: 0.22em;
+  color: color-mix(in srgb, var(--c1) 70%, #fff);
+}
+
+.copy {
+  margin-top: clamp(8px, 0.8vw, 14px);
+  font-size: clamp(11px, 0.84vw, 14px);
+  line-height: 1.85;
+  letter-spacing: 0.03em;
+  color: var(--nt-ink-soft);
+}
+
+.founder {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(10px, 1vw, 16px);
+  padding-top: clamp(9px, 0.9vw, 14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: clamp(9px, 0.72vw, 12px);
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.founder span {
+  font-family: var(--font-ui);
+  font-size: 7.5px;
+  letter-spacing: 0.22em;
+  color: var(--nt-ink-faint);
+}
+
+/* ---------- 右端のレール ---------- */
+.rail {
+  position: absolute;
+  right: clamp(8px, 1.4vw, 26px);
+  top: 50%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.railLabel,
+.railCount {
+  writing-mode: vertical-rl;
+  font-family: var(--font-ui);
+  letter-spacing: 0.4em;
+}
+
+.railLabel {
+  font-size: clamp(8px, 0.66vw, 11px);
+  color: var(--nt-ink-faint);
+}
+
+.railCount {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: clamp(9px, 0.7vw, 12px);
+  color: #fff;
+}
+
+.railCount em {
+  font-style: normal;
+  color: var(--nt-ink-faint);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+  .section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .head {
+    padding-inline: var(--gutter);
+  }
+
+  .viewport {
+    display: block;
+    height: auto;
+    margin-top: clamp(28px, 6vw, 48px);
+    perspective: none;
+    overflow: hidden;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .track {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding-inline: var(--gutter);
+    transform: none !important;
+  }
+
+  .outer {
+    width: 100%;
+  }
+
+  .inner3d {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .rail {
+    display: none;
+  }
+}
+
+@media (max-width: 519px) {
+  .track {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — 横スクロールをやめ、グリッドで一覧できるように
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .head {
+    padding-inline: max(var(--gutter), calc((100vw - var(--shell)) / 2 + var(--gutter)));
+  }
+
+  .viewport {
+    display: block;
+    height: auto;
+    margin-top: clamp(28px, 4vw, 48px);
+    overflow: visible;
+    perspective: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .track {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 16px;
+    padding-inline: max(var(--gutter), calc((100vw - var(--shell)) / 2 + var(--gutter)));
+    transform: none !important;
+  }
+
+  .outer {
+    width: 100%;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .inner3d {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .rail {
+    display: none;
+  }
+}

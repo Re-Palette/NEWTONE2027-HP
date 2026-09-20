@@ -1,0 +1,260 @@
+/* ==========================================================================
+   SECTION 06 — FINAL CTA（HEROと呼応する着地）
+   ========================================================================== */
+
+.section {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: clamp(100px, 16vh, 200px) var(--gutter) clamp(90px, 14vh, 170px);
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #04041a 0%,
+    #080a30 28%,
+    #0d0a3c 58%,
+    #05051c 100%
+  );
+  text-align: center;
+}
+
+/* GSAP が transform を使うため、センタリングは margin で行う */
+.halo {
+  --halo: min(1500px, 128vw);
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: var(--halo);
+  height: var(--halo);
+  margin-left: calc(var(--halo) / -2);
+  margin-top: calc(var(--halo) / -2);
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(190, 130, 255, 0.34) 12%,
+    rgba(120, 90, 255, 0.24) 32%,
+    rgba(255, 70, 170, 0.16) 52%,
+    rgba(0, 0, 0, 0) 74%
+  );
+  pointer-events: none;
+}
+
+/* 放射状の光条 */
+.rays {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: min(1500px, 132vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255, 255, 255, 0.055) 0deg 1.2deg,
+    rgba(255, 255, 255, 0) 1.2deg 9deg
+  );
+  -webkit-mask-image: radial-gradient(
+    closest-side,
+    rgba(0, 0, 0, 0) 8%,
+    #000 34%,
+    rgba(0, 0, 0, 0) 72%
+  );
+  mask-image: radial-gradient(
+    closest-side,
+    rgba(0, 0, 0, 0) 8%,
+    #000 34%,
+    rgba(0, 0, 0, 0) 72%
+  );
+  animation: rayTurn 90s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rayTurn {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+.headline {
+  font-family: var(--font-mincho);
+  font-weight: 600;
+  font-size: clamp(24px, 3.36vw, 62px);
+  line-height: 1.52;
+  letter-spacing: 0.08em;
+  color: #fff;
+  margin-top: clamp(18px, 2vw, 34px);
+  text-shadow: 0 2px 40px rgba(90, 110, 255, 0.55);
+}
+
+.lineMask {
+  display: block;
+  overflow: hidden;
+}
+
+.line {
+  display: block;
+}
+
+.creed {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 42px);
+  margin-top: clamp(26px, 3.4vw, 60px);
+  perspective: 600px;
+}
+
+.creedWord {
+  display: block;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(16px, 2.36vw, 44px);
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  color: #fff;
+  text-shadow:
+    0 0 26px rgba(160, 190, 255, 0.7),
+    0 0 70px rgba(120, 90, 255, 0.5);
+}
+
+.creedWord:nth-child(2) {
+  background: var(--grad-script);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 22px rgba(255, 62, 165, 0.8));
+}
+
+.sub {
+  margin-top: clamp(16px, 1.9vw, 32px);
+  font-family: var(--font-mincho);
+  font-weight: 500;
+  font-size: clamp(12px, 1.16vw, 20px);
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(12px, 1.4vw, 24px);
+  margin-top: clamp(30px, 3.6vw, 60px);
+}
+
+.entry {
+  padding: clamp(15px, 1.24vw, 21px) clamp(46px, 4.4vw, 88px);
+  font-size: clamp(12px, 0.92vw, 15px);
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+}
+
+.secondary {
+  --pill-bd: rgba(255, 255, 255, 0.26);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 64px);
+  margin-top: clamp(34px, 4.2vw, 72px);
+  padding-top: clamp(24px, 3vw, 44px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  width: min(100%, 900px);
+}
+
+.meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.meta dt {
+  font-family: var(--font-ui);
+  font-size: clamp(8px, 0.62vw, 10px);
+  letter-spacing: 0.34em;
+  color: var(--nt-ink-faint);
+}
+
+.meta dd {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(11px, 0.88vw, 15px);
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+
+/* ---------- 最後のロックアップ ---------- */
+.lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: clamp(40px, 5.4vw, 92px);
+}
+
+.lockMark {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: clamp(18px, 1.7vw, 32px);
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  color: #fff;
+}
+
+.lockYear {
+  margin-top: 6px;
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: clamp(9px, 0.68vw, 12px);
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.lockScript {
+  margin-top: clamp(6px, 0.8vw, 14px);
+  font-family: var(--font-script);
+  font-size: clamp(20px, 2.1vw, 40px);
+  background: var(--grad-script);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 20px rgba(255, 62, 165, 0.7));
+}
+
+@media (max-width: 519px) {
+  .meta {
+    gap: 18px;
+  }
+  .meta div {
+    width: 100%;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .actions a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rays {
+    animation: none;
+  }
+}

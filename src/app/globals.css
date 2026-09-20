@@ -1,0 +1,379 @@
+@import "./fonts.css";
+
+/* ==========================================================================
+   NEWTONE 2027 — Global design system
+   Deep Navy / Electric Blue / Purple / Magenta / Neon Glow / Glassmorphism
+   ========================================================================== */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Base */
+  --nt-void: #03030e;
+  --nt-navy-950: #060619;
+  --nt-navy-900: #0a0a26;
+  --nt-navy-850: #0e0f33;
+  --nt-navy-800: #14154a;
+  --nt-navy-700: #1d1f6b;
+
+  /* Accents */
+  --nt-blue: #4aa3ff;
+  --nt-blue-deep: #2c5cf0;
+  --nt-violet: #8f6bff;
+  --nt-purple: #a855f7;
+  --nt-magenta: #ff3ea5;
+  --nt-pink: #ff6fc8;
+  --nt-pink-soft: #ffa8dd;
+  --nt-cyan: #7ef0ff;
+
+  /* Ink */
+  --nt-white: #ffffff;
+  --nt-ink: rgba(255, 255, 255, 0.82);
+  --nt-ink-soft: rgba(255, 255, 255, 0.6);
+  --nt-ink-faint: rgba(255, 255, 255, 0.38);
+  --nt-line: rgba(255, 255, 255, 0.16);
+  --nt-line-soft: rgba(255, 255, 255, 0.08);
+
+  /* Gradients */
+  --grad-cta: linear-gradient(
+    98deg,
+    #ff4fae 0%,
+    #d95ce0 38%,
+    #8f6bff 68%,
+    #4a8dff 100%
+  );
+  --grad-script: linear-gradient(92deg, #ff4fae 0%, #ff7fd0 48%, #b06bff 100%);
+  --grad-rule: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 18%,
+    rgba(255, 255, 255, 0.45) 82%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  --grad-iridescent: linear-gradient(
+    104deg,
+    #ffffff 0%,
+    #f4ecff 20%,
+    #ffffff 38%,
+    #eaf4ff 56%,
+    #ffffff 72%,
+    #ffeefa 88%,
+    #ffffff 100%
+  );
+
+  /* Glass */
+  --glass-bg: rgba(20, 22, 64, 0.34);
+  --glass-brd: rgba(255, 255, 255, 0.14);
+  --glass-blur: 18px;
+
+  /* Type */
+  --font-display: "Anton", "Zen Kaku Gothic New", Impact, sans-serif;
+  --font-ui: "Jost", "Zen Kaku Gothic New", system-ui, sans-serif;
+  --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --font-mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-script: "Yellowtail", cursive;
+  --font-script-jp: "Klee One", "Yu Gothic", cursive;
+
+  /* Layout */
+  --shell: 1560px;
+  --gutter: clamp(20px, 4.2vw, 76px);
+  --header-h: clamp(62px, 6.2vw, 86px);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto; /* Lenis が担当 */
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--nt-void);
+  color: var(--nt-ink);
+}
+
+body {
+  font-family: var(--font-jp);
+  font-weight: 400;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(255, 62, 165, 0.42);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--nt-pink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* 細いカスタムスクロールバー */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #06061a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff4fae, #8f6bff, #4a8dff);
+  border-radius: 99px;
+}
+
+/* ---------- Layout utilities ---------- */
+.u-shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.u-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Typographic primitives ---------- */
+.u-eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(9px, 0.78vw, 12px);
+  letter-spacing: 0.42em;
+  color: var(--nt-ink-soft);
+  text-transform: uppercase;
+}
+
+.u-h2 {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 58px);
+  line-height: 1.26;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 0 38px rgba(120, 150, 255, 0.35);
+}
+
+.u-lead {
+  font-size: clamp(13px, 1.02vw, 16px);
+  line-height: 2.12;
+  color: var(--nt-ink-soft);
+  letter-spacing: 0.06em;
+}
+
+/* 手書き風の日本語サブコピー（ピンク） */
+.u-script-jp {
+  font-family: var(--font-script-jp);
+  font-weight: 600;
+  font-size: clamp(20px, 2.35vw, 38px);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  background: var(--grad-script);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 16px rgba(255, 79, 174, 0.55));
+}
+
+/* 欧文スクリプト */
+.u-script-en {
+  font-family: var(--font-script);
+  background: var(--grad-script);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 20px rgba(255, 79, 174, 0.5));
+}
+
+/* ---------- Buttons ---------- */
+.u-pill {
+  --pill-bd: rgba(255, 255, 255, 0.34);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(14px, 1.6vw, 28px);
+  padding: clamp(13px, 1.15vw, 19px) clamp(24px, 2.1vw, 36px);
+  border: 1px solid var(--pill-bd);
+  border-radius: 99px;
+  font-family: var(--font-jp);
+  font-size: clamp(12px, 0.92vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #fff;
+  background: rgba(10, 12, 44, 0.34);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition:
+    border-color 0.5s ease,
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s ease;
+}
+
+.u-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--grad-cta);
+  opacity: 0;
+  transform: scaleX(0.2);
+  transform-origin: left center;
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.u-pill > * {
+  position: relative;
+  z-index: 1;
+}
+
+.u-pill:hover {
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 48px -14px rgba(255, 79, 174, 0.7);
+}
+
+.u-pill:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.u-pill__arrow {
+  width: 26px;
+  height: 8px;
+  flex: none;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.u-pill:hover .u-pill__arrow {
+  transform: translateX(5px);
+}
+
+/* グラデーション塗りのCTA（ENTRY / JOIN） */
+.u-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 1.5vw, 26px);
+  padding: clamp(11px, 0.92vw, 15px) clamp(22px, 1.9vw, 34px);
+  border-radius: 99px;
+  background: var(--grad-cta);
+  background-size: 180% 100%;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(11px, 0.82vw, 13px);
+  letter-spacing: 0.24em;
+  color: #fff;
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.22) inset,
+    0 10px 34px -10px rgba(255, 79, 174, 0.75);
+  transition:
+    background-position 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s ease;
+}
+
+.u-cta:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+    0 18px 50px -12px rgba(255, 79, 174, 0.95);
+}
+
+.u-cta__arrow {
+  width: 22px;
+  height: 8px;
+  flex: none;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.u-cta:hover .u-cta__arrow {
+  transform: translateX(5px);
+}
+
+/* ---------- Glass ---------- */
+.u-glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-brd);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+}
+
+/* ---------- Reduced motion ----------
+   OSで「視差効果を減らす」が有効なときは、装飾のアニメーションを止める。
+   各セクションは、同じ条件でレイアウトも縦積みに切り替えます。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
