@@ -40,9 +40,9 @@
   top: 0;
   width: 66%;
   height: 100%;
-  opacity: 0.4;
-  filter: blur(34px) saturate(130%);
-  transform: scale(1.12);
+  opacity: 0.3;
+  filter: blur(26px) saturate(125%);
+  transform: scale(1.1);
 }
 
 /* 主役のポートレート（等身大のフレーム） */
@@ -91,6 +91,7 @@
 .shotImg {
   object-fit: cover;
   object-position: 50% 28%;
+  filter: contrast(1.06) saturate(1.05);
 }
 
 .shotPlate {
@@ -173,7 +174,7 @@
   font-size: clamp(26px, 3.02vw, 52px);
   line-height: 1.3;
   color: #fff;
-  text-shadow: 0 0 40px rgba(120, 150, 255, 0.4);
+  text-shadow: 0 1px 14px rgba(6, 8, 40, 0.85);
 }
 
 .copyLineMask {
@@ -226,12 +227,12 @@
   border-left: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
   background: linear-gradient(
     100deg,
-    rgba(10, 12, 44, 0.62) 0%,
-    rgba(10, 12, 44, 0.18) 62%,
-    rgba(10, 12, 44, 0) 100%
+    rgba(9, 11, 42, 0.86) 0%,
+    rgba(9, 11, 42, 0.46) 62%,
+    rgba(9, 11, 42, 0.06) 100%
   );
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .mask,

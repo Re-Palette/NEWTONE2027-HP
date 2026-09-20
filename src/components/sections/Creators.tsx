@@ -201,12 +201,13 @@ export default function Creators() {
         {/* ---------- 右：3D空間に浮かぶカード ---------- */}
         <div className={styles.stage}>
           <div className={styles.field}>
-            <div className={styles.lead}>
+            <div className={`${styles.lead} u-grain`}>
               <Image
                 src={media.creators.lead}
                 alt=""
                 fill
-                sizes="(max-width: 1023px) 60vw, 26vw"
+                quality={92}
+                sizes="(max-width: 519px) 94vw, (max-width: 1023px) 60vw, 34vw"
                 className={styles.leadImg}
               />
               <span className={styles.leadGlow} aria-hidden="true" />
@@ -231,13 +232,14 @@ export default function Creators() {
                   className={styles.card}
                   style={{ "--accent": c.accent } as React.CSSProperties}
                 >
-                  <div className={styles.cardMedia}>
+                  <div className={`${styles.cardMedia} u-grain`}>
                     {c.image ? (
                       <Image
                         src={c.image}
                         alt={`${c.name}（${c.brand}）`}
                         fill
-                        sizes="240px"
+                        quality={92}
+                        sizes="(max-width: 519px) 94vw, (max-width: 1023px) 46vw, 340px"
                         className={styles.cardImg}
                       />
                     ) : (

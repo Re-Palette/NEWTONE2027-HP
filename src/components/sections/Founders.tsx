@@ -204,20 +204,22 @@ export default function Founders() {
             {/* 背景いっぱいに敷く、ぼかした同じカット */}
             <div className={styles.shotAmbient}>
               {f.image ? (
-                <Image src={f.image} alt="" fill sizes="100vw" className={styles.shotImg} />
+                /* 強くぼかして敷くだけなので、小さいサイズで十分 */
+                <Image src={f.image} alt="" fill quality={75} sizes="42vw" className={styles.shotImg} />
               ) : (
                 <span className={styles.shotPlate} />
               )}
             </div>
 
             {/* 主役のポートレート */}
-            <figure className={styles.shotFrame}>
+            <figure className={`${styles.shotFrame} u-grain`}>
               {f.image ? (
                 <Image
                   src={f.image}
                   alt=""
                   fill
-                  sizes="(max-width: 767px) 100vw, 28vw"
+                  quality={92}
+                  sizes="(max-width: 767px) 64vw, 26vw"
                   className={styles.shotImg}
                 />
               ) : (

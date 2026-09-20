@@ -34,7 +34,7 @@ export const experienceStages: ExperienceStage[] = [
     title: "会場全体",
     body: "全国から集まったブランドのブースが一望できるメインホール。歩くたびに、まだ知らない“好き”とすれ違います。",
     image: media.experience.hall,
-    zoom: 1.14,
+    zoom: 1.07,
   },
   {
     id: "e03",
@@ -43,7 +43,7 @@ export const experienceStages: ExperienceStage[] = [
     title: "ブランドブース",
     body: "一つひとつのブースが、そのブランドの世界そのもの。照明も什器も香りも、学生たちが自分の手で設計しています。",
     image: media.experience.booth,
-    zoom: 1.28,
+    zoom: 1.14,
   },
   {
     id: "e04",
@@ -52,7 +52,7 @@ export const experienceStages: ExperienceStage[] = [
     title: "商品に触れる",
     body: "手に取って、試して、比べて。ここでしか出会えないプロダクトを、つくった本人の言葉と一緒に体験できます。",
     image: media.experience.product,
-    zoom: 1.42,
+    zoom: 1.21,
   },
   {
     id: "e05",
@@ -61,6 +61,6 @@ export const experienceStages: ExperienceStage[] = [
     title: "人と出会う",
     body: "来場者も、学生起業家も、同じ熱量でここにいる。商談も、相談も、はじめましても。出会いがそのまま次の企画になります。",
     image: media.experience.crowd,
-    zoom: 1.56,
+    zoom: 1.28,
   },
 ];

@@ -27,9 +27,9 @@
 
   /* Ink */
   --nt-white: #ffffff;
-  --nt-ink: rgba(255, 255, 255, 0.82);
-  --nt-ink-soft: rgba(255, 255, 255, 0.6);
-  --nt-ink-faint: rgba(255, 255, 255, 0.38);
+  --nt-ink: rgba(255, 255, 255, 0.9);
+  --nt-ink-soft: rgba(255, 255, 255, 0.74);
+  --nt-ink-faint: rgba(255, 255, 255, 0.46);
   --nt-line: rgba(255, 255, 255, 0.16);
   --nt-line-soft: rgba(255, 255, 255, 0.08);
 
@@ -213,14 +213,16 @@ button {
   line-height: 1.26;
   letter-spacing: 0.02em;
   color: #fff;
-  text-shadow: 0 0 38px rgba(120, 150, 255, 0.35);
+  /* 大きなグローは字形の輪郭を溶かすので、可読性を担保する範囲に留める */
+  text-shadow: 0 1px 12px rgba(6, 8, 40, 0.85);
 }
 
 .u-lead {
   font-size: clamp(13px, 1.02vw, 16px);
-  line-height: 2.12;
+  line-height: 2.06;
   color: var(--nt-ink-soft);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 8px rgba(6, 8, 40, 0.7);
 }
 
 /* 手書き風の日本語サブコピー（ピンク） */
@@ -355,6 +357,29 @@ button {
 
 .u-cta:hover .u-cta__arrow {
   transform: translateX(5px);
+}
+
+/* ---------- 写真レイヤーの質感 ----------
+   素材の解像度が足りないカットでも、細かな粒子をのせると
+   高周波の情報が戻り、眠い印象がやわらぐ。
+   写真を内包する要素に .u-grain を付けて使う。 */
+.u-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  /* feTurbulence の出力は中間グレーに寄るため、overlay ではほぼ無変化になる。
+     feComponentTransfer でコントラストを広げてから使う。 */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='3' intercept='-1'/><feFuncG type='linear' slope='3' intercept='-1'/><feFuncB type='linear' slope='3' intercept='-1'/></feComponentTransfer></filter><rect width='160' height='160' filter='url(%23g)'/></svg>");
+  background-size: 160px 160px;
+}
+
+/* 眠く見えがちな仮素材を、ほんの少し締める */
+.u-crisp {
+  filter: contrast(1.07) saturate(1.06);
 }
 
 /* ---------- Glass ---------- */

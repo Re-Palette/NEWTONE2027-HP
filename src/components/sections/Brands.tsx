@@ -261,13 +261,14 @@ export default function Brands() {
                   } as React.CSSProperties
                 }
               >
-                <div className={styles.media}>
+                <div className={`${styles.media} u-grain`}>
                   {b.image ? (
                     <Image
                       src={b.image}
                       alt={b.name}
                       fill
-                      sizes="(max-width: 1023px) 70vw, 24vw"
+                      quality={92}
+                      sizes="(max-width: 519px) 94vw, (max-width: 1023px) 46vw, 24vw"
                       className={styles.mediaImg}
                     />
                   ) : (

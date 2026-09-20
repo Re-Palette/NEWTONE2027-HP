@@ -38,6 +38,7 @@
 .shotImg {
   object-fit: cover;
   object-position: 50% 52%;
+  filter: contrast(1.07) saturate(1.06);
 }
 
 .shotPlate {
@@ -128,7 +129,7 @@
   font-size: clamp(26px, 3.02vw, 52px);
   line-height: 1.3;
   color: #fff;
-  text-shadow: 0 0 40px rgba(120, 150, 255, 0.45);
+  text-shadow: 0 1px 14px rgba(6, 8, 40, 0.85);
 }
 
 .copyLineMask {
@@ -179,12 +180,12 @@
   border-left: 1px solid rgba(255, 79, 174, 0.7);
   background: linear-gradient(
     100deg,
-    rgba(8, 10, 40, 0.58) 0%,
-    rgba(8, 10, 40, 0.34) 58%,
-    rgba(8, 10, 40, 0) 100%
+    rgba(7, 9, 38, 0.88) 0%,
+    rgba(7, 9, 38, 0.58) 58%,
+    rgba(7, 9, 38, 0.04) 100%
   );
-  backdrop-filter: blur(14px) saturate(130%);
-  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  backdrop-filter: blur(6px) saturate(125%);
+  -webkit-backdrop-filter: blur(6px) saturate(125%);
   /* 右端を硬い直線で切らない */
   -webkit-mask-image: linear-gradient(100deg, #000 62%, transparent 100%);
   mask-image: linear-gradient(100deg, #000 62%, transparent 100%);

@@ -126,13 +126,14 @@ export default function Hero() {
     <section ref={root} className={styles.hero} id="top">
       {/* ---------- 背景レイヤー ---------- */}
       <div className={styles.stage} aria-hidden="true">
-        <div className={styles.portraitWrap}>
+        <div className={`${styles.portraitWrap} u-grain`}>
           <Image
             src={media.hero.portrait}
             alt=""
             fill
             priority
-            sizes="100vw"
+            quality={92}
+            sizes="(max-width: 767px) 126vw, 52vw"
             className={styles.portrait}
           />
         </div>

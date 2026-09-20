@@ -68,7 +68,7 @@ export default function Experience() {
               inner,
               { scale: stage.zoom, z: -260 },
               {
-                scale: stage.zoom * 1.14,
+                scale: stage.zoom * 1.07,
                 z: 0,
                 duration: 2.6,
                 ease: "none",
@@ -174,12 +174,13 @@ export default function Experience() {
       <div className={styles.stage} aria-hidden="true">
         {experienceStages.map((s, i) => (
           <div key={s.id} className={styles.shot} data-i={i}>
-            <div className={styles.shotInner} data-i={i}>
+            <div className={`${styles.shotInner} u-grain`} data-i={i}>
               {s.image ? (
                 <Image
                   src={s.image}
                   alt=""
                   fill
+                  quality={92}
                   sizes="100vw"
                   className={styles.shotImg}
                 />
@@ -257,12 +258,13 @@ export default function Experience() {
         {experienceStages.map((s) => (
           <div key={s.id} className={styles.stageRow}>
             <div className={styles.rowMedia}>
-              <div className={styles.shotInner}>
+              <div className={`${styles.shotInner} u-grain`}>
                 {s.image ? (
                   <Image
                     src={s.image}
                     alt={s.title}
                     fill
+                    quality={92}
                     sizes="100vw"
                     className={styles.shotImg}
                   />
